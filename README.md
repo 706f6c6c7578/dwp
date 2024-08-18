@@ -1,0 +1,2 @@
+# dwp
+Generate Diceware passphrases.
