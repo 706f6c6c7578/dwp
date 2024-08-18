@@ -15,6 +15,7 @@ func main() {
 	rolls := flag.Int("r", 10, "number of Diceware numbers to generate")
 	dictFile := flag.String("d", "", "path to Diceware dictionary file")
 	showPassphrase := flag.Bool("p", false, "output complete passphrase")
+	separator := flag.String("s", " ", "separator for passphrase words (used with -p)")
 
 	// Parse command-line flags
 	flag.Parse()
@@ -63,7 +64,7 @@ func main() {
 
 	// Output complete passphrase if requested
 	if *showPassphrase && len(passphraseWords) > 0 {
-		fmt.Printf("\nComplete passphrase: %s\n", strings.Join(passphraseWords, " "))
+		fmt.Printf("\nComplete passphrase: %s\n", strings.Join(passphraseWords, *separator))
 	}
 }
 
@@ -118,12 +119,10 @@ func loadDictionary(filename string) (map[int]string, error) {
 }
 
 func printUsage() {
-	fmt.Fprintf(os.Stderr, "Usage: %s [-r rolls] [-d dictionary] [-p]\n", os.Args[0])
+	fmt.Fprintf(os.Stderr, "Usage: %s [-r rolls] [-d dictionary] [-p] [-s separator]\n", os.Args[0])
 	fmt.Fprintf(os.Stderr, "  -r rolls       number of Diceware numbers to generate (default 10)\n")
 	fmt.Fprintf(os.Stderr, "  -d dictionary  path to Diceware dictionary file\n")
 	fmt.Fprintf(os.Stderr, "  -p             output complete passphrase\n")
+	fmt.Fprintf(os.Stderr, "  -s separator   separator for passphrase words (default space)\n")
 	flag.PrintDefaults()
 }
-
-
-
